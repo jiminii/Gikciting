@@ -1,0 +1,222 @@
+body{
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.wrapper{
+  height: 100%;
+}
+.nav-container{
+  border-bottom: 1px solid #000;
+}
+.global-nav{
+  background:rgba(38,98,212,1);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem 0 1rem;
+}
+.HANSEO{
+  text-align: left;
+  margin-right: auto;
+  font-weight: bold;
+}
+.global-nav .global-nav-item:not(.HANSEO){
+  margin-left: 0.5rem;
+  font-size: 0.7rem
+}
+.global-nav .global-nav-item:hover{
+  transition: 1s;
+  color:#fff;
+}
+.local-nav{
+  padding: 0 1rem 0 1rem;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.profile-container{
+  position: relative;
+  top:15vh;
+  margin-left: 16%;
+  margin-top: 1rem;
+}
+.profile-container .user-name,
+.profile-container .user-number,
+.profile-container .user-dormitory,
+.profile-container .user-major{
+  display: flex;
+}
+.profile-container p{
+  margin-right: 20%;
+  margin-left: auto;
+  text-align: center;
+  color:#8C8C8C;
+}
+.HANSEO-footer{
+  position: absolute;
+  top:90%;
+  left:50%;
+  transform: translateX(-50%);
+}
+.menu{
+  position: relative;
+  top:26vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.menu .menu-item, .menu a{
+  margin-bottom: 0.7rem;
+  text-decoration: underline;
+  text-decoration-color: #8C8C8C;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.menu .delete{
+  font-size:0.6rem;
+  color:#8C8C8C;
+}
+
+/* modal */
+
+
+.modal1, .modal2{
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.4);
+   display: none;
+}
+.show{
+  display: block;
+}
+.modal_body{
+   position: absolute;
+   top: 45%;
+   left: 50%;
+   width: 300px;
+   height: 500px;
+   padding: 20px;
+   text-align: center;
+   background-color: rgb(255, 255, 255);
+   border-radius: 10px;
+   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+   transform: translateX(-50%) translateY(-50%);
+}
+.m_head{
+   height: 10%;
+   width:100%;
+   padding: 1rem;
+   display: flex;
+   justify-content: center;
+   align-items:center;
+   background-color:#e7e5e5;
+   border-top-left-radius: 10px;
+   border-top-right-radius: 10px;
+}
+.m_body{
+   height: 80%;
+   padding: 20px;
+}
+.m_body #rooms{
+    height:1.2rem;
+    border-radius:5px;
+    font-weight:bold;
+}
+.modal1 label{
+    text-align: center;
+    font-size: 0.7rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20%;
+}
+.modal1 p{
+  margin-bottom: 1rem;
+}
+.m_body select{
+  width: 80%;
+}
+.m_body .studentNum{
+    display:none;
+}
+.m_body .RoomApplyForm{
+  width: 100%;
+  height: 100%;
+}
+.modal .m_footer{
+   height: 10%;
+   padding: 1rem;
+   border-bottom-left-radius: 10px;
+   border-bottom-right-radius: 10px;
+   display: flex;
+   justify-content:center;
+   align-items: center;
+}
+.modal_title{
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   font-size: 1.2rem;
+   color: gray;
+   font-weight: 500;
+}
+.modal_label{
+   padding-top: 10px;
+}
+.submit-btn{
+  font-weight: bold;
+  width: 30%;
+  height: 1.5rem;
+  margin: 5% 10% 5% 65%;
+  border: 1px solid #000;
+  background: #fff;
+  border-radius: 10px;
+}
+/*Modal2*/
+.modal2 label{
+  font-size:0.7rem;
+  margin-bottom:0.5rem;
+}
+.modal2 hr{
+  margin:10% auto;
+}
+.modal2 .submit-btn{
+  font-weight: bold;
+  width: 30%;
+  height: 1.5rem;
+  margin: 5% 50% 5% 37%;
+  border: 1px solid #000;
+  background: #fff;
+  border-radius: 10px;
+}
+.m_body input{
+  width: 80%;
+  height: 1.3rem;
+  margin:0.6rem auto;
+}
+@media (min-width: 750px){
+  .submit-btn{
+    left:45%;
+  }
+}
+@media (max-width: 380px){
+  .submit-btn{
+    top:46%;
+    left:40%;
+  }
+  .profile-container p{
+    font-size:0.8rem;
+  }
+}

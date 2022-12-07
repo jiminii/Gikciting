@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Noto+Sans:wght@400;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/CSS/reset.css">
+  <link rel="stylesheet" href="/CSS/Login.css">
+  <title>Login</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="img-container">
+      <img src="RESOURCES/images/HANSEO.JPG" alt="HANSEO UNIV">
+      <p class="desc">GIKCITING</p>
+    </div>
+    <div class="login-container">
+      <div class="login-form-title">
+        <p class="desc">로그인 후 이용 바랍니다.</p>
+      </div>
+      <form class="login-form" action="MemberNew" method="post">
+        <div class="row">
+          <label for="Input-ID">ID</label>
+        </div>
+        <input class="input" type="text" id="Input-ID" placeholder="ID" name="studentNum">
+        <div class="row">
+          <label for="Input-Password">Password</label>
+        </div>
+        <input class="input" type="password" id="Input-Password" placeholder="Password" name="password">
+        <input type="submit" onclick="test()" class="login-btn" value="로그인">
+      </form>
+      <hr>
+    </div>
+    <div class="other-menu">
+      <a href="#" class="">비밀번호 찾기</a>
+      <a href="ApplicationNew" class="#">회원 가입 신청하기</a>
+    </div>
+    <div class="call">Tel : 010-9685-0755</div>
+    <!--
+    <a href="applications">신청 회원보기</a>
+    -->
+  </div>
+  <script>
+
+    function test() {
+      let password = document.querySelector('#Input-Password').value;
+      let id = document.querySelector('#Input-ID').value;
+
+      if(!password || !id){
+        alert('모두 입력해주세요.');
+      }
+    }
+
+  </script>
+</body>
+</html>

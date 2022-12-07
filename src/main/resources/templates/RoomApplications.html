@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Noto+Sans:wght@400;900&display=swap"
+          rel="stylesheet">
+    <script src="https://kit.fontawesome.com/adc3b87ab1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="CSS/reset.css?after">
+    <link rel="stylesheet" href="CSS/RoomApplications.css?after">
+    <title>RoomApplications</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="nav-container">
+        <nav class="global-nav">
+            <a th:onclick="|location.href='@{index(studentNum=${member.studentNum})}'|" class="global-nav-item HANSEO">GikCiting</a>
+            <a href="#" class="global-nav-item">About</a>
+        </nav>
+        <nav class="local-nav">
+            <a th:onclick="|location.href='@{ShowRooms(studentNum=${member.studentNum})}'|" class="local-nav-item">방 신청현황 보기</a>
+            <a href="LogoutMember" class="local-nav-item">로그 아웃</a>
+        </nav>
+    </div>
+
+    <div class="board">
+        <h3>지원서 목록</h3>
+        <hr/>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>학번</th>
+                <th>이름</th>
+                <th>전공</th>
+                <th>신청 방</th>
+                <th>승인하기</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="applications : ${applications}">
+                <td class="id" th:text="${applications.id}">id</td>
+                <td th:text="${applications.studentNum}">studentNum</td>
+                <td th:text="${applications.name}">name</td>
+                <td th:text="${applications.major}">major</td>
+                <!--<td><button class="openModal"  th:attr="onclick=|openModal()|" >보기</button></td>-->
+                <td><button class="openModal"  onclick="openModal()" >방 확인</button></td>
+                <td><button class="confirm" th:onclick="|location.href='@{insertRooms(id=${applications.id})}'|">승인</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 모달 : 신청한 방에 몇 명이 있는지 보여준다.-->
+    <div class="modal" id="modal">
+        <div class="modal_body">
+            <div class="m_head">
+                <div class="modal_title">방 목록</div>
+            </div>
+            <div class="m_body">
+
+            </div>
+            <div class="m_footer">
+                <div class="modal_btn cancel" id="close_btn">CANCEL</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 -->
+
+    <footer class="global-footer">
+        <P class="HANSEO">HANSEO UNIV</P>
+        <p>Contact : 개발자 강지민 : 010-****-****</p>
+    </footer>
+</div>
+</body>
+<script>
+
+        let show_on;
+        const modal = document.querySelector('.modal');
+        let show_close = document.querySelector('.modal .cancel');
+
+         function openModal(){  //openModal onclick
+
+            modal.classList.add('show');
+
+         }
+
+        // 모달 닫기
+        show_close.addEventListener('click', function(e){
+            modal.classList.remove('show');
+        })
+</script>
+</html>

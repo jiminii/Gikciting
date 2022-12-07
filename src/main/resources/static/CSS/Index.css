@@ -1,0 +1,117 @@
+body{
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.wrapper{
+  height: 100%;
+}
+.nav-container{
+  border-bottom: 1px solid #000;
+}
+.global-nav{
+  background:rgba(38,98,212,1);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem 0 1rem;
+}
+.HANSEO{
+  text-align: left;
+  margin-right: auto;
+  font-weight: bold;
+}
+.global-nav .global-nav-item:not(.HANSEO){
+  margin-left: 0.5rem;
+  font-size: 0.7rem
+}
+.global-nav .global-nav-item:hover{
+  transition: 1s;
+  color:#fff;
+}
+.local-nav{
+  padding: 0 1rem 0 1rem;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+.location-container{
+  position: absolute;
+  top:25vh;
+  left:50%;
+  transform: translateX(-48%);
+  width: 100%;
+  text-align: center;
+}
+.location-container iframe{
+  overflow: hidden;
+  border:4px solid #2662D4;
+  border-radius: 1rem;
+}
+.location-container #find-me{
+  position: relative;
+  top: -1rem;
+  left: -2.5em;
+  font-size: 1.2rem;
+  width: 0;
+  height: 0;
+}
+.location-container #map-link{
+  font-size:0.7rem;
+  width: 100%;
+}
+.submit-btn{
+  padding: 0.5rem 0.7rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+  position: relative;
+  top:42%;
+  left:40%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 2rem;
+  border: 2px solid rgba(38,98,212,1);
+  border-radius: 0.3rem;
+}
+.profile-container{
+  position: relative;
+  top:48vh;
+  margin-left: 18%;
+  margin-top: 1rem;
+}
+.profile-container .user-name,
+.profile-container .user-number,
+.profile-container .user-dormitory,
+.profile-container .user-major{
+  display: flex;
+}
+.profile-container p{
+  margin-right: 20%;
+  margin-left: auto;
+  text-align: center;
+  color:#8C8C8C;
+}
+.HANSEO-footer{
+  position: absolute;
+  top:90%;
+  left:50%;
+  transform: translateX(-50%);
+}
+@media (min-width: 750px){
+  .submit-btn{
+    left:45%;
+  }
+}
+@media (max-width: 380px){
+  .submit-btn{
+    top:46%;
+    left:40%;
+  }
+  .profile-container p{
+    font-size:0.8rem;
+  }
+}

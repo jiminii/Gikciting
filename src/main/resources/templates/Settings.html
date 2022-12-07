@@ -1,0 +1,158 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Noto+Sans:wght@400;900&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/adc3b87ab1.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/CSS/reset.css?after">
+  <link rel="stylesheet" href="/CSS/Settings.css?after">
+  <title>Index</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="nav-container">
+      <nav class="global-nav">
+        <a th:onclick="|location.href='@{index(studentNum=${member.studentNum})}'|" class="global-nav-item HANSEO">GikCiting</a>
+        <a th:onclick="|location.href='@{ShowRooms(studentNum=${member.studentNum})}'|" class="global-nav-item">방 신청 현황</a>
+        <a href="#" class="global-nav-item">About</a>
+      </nav>
+      <nav class="local-nav">
+        <a href="" class="local-nav-item">점호 내역</a>
+        <a th:onclick="|location.href='@{settings(studentNum=${member.studentNum})}'|" class="local-nav-item">설정</a>
+        <a href="LogoutMember" class="local-nav-item">로그 아웃</a>
+          <!-- 관리자 메뉴 삽입
+            <div class="local-nav-item"></div>
+            <div class="local-nav-item"></div>
+          -->
+      </nav>
+    </div>
+
+    <div th:each="member : ${member}" class="profile-container">
+      <div class="user-name">이름:<p th:text="${member.name}">이름</p></div>
+      <div class="user-major">학과:<p th:text="${member.major}">학과</p></div>
+      <div class="user-number">학번:<p th:text="${member.studentNum}">학번</p></div>
+    </div>
+
+    <div class="menu">
+      <p class="menu-item" onclick="openModal1()">다른 방 신청하기</p>
+      <p class="menu-item" onclick="openModal2()">비밀번호 변경하기</p>
+      <!--관리자 승인 시-->
+      <a th:if="${member.authority == 1}" class="menu-item" th:onclick="|location.href='@{roomApplications(studentNum=${member.studentNum})}'|">방 신청 내역 확인하기</a>
+      <a th:if="${member.authority == 1}" class="menu-item" th:onclick="|location.href='@{applications(studentNum=${member.studentNum})}'|">회원 신청 내역 확인하기</a>
+      <a class="menu-item delete" th:attr="onclick=|deleteMember('${member.studentNum}')|">회원 탈퇴</a>
+    </div>
+
+
+    <!-- 모달 -->
+    <!--다른 방 신청 모달-->
+    <div class="modal1" >
+      <div class="modal_body">
+        <div class="m_head">
+          <div class="modal_title">방 신청하기</div>
+        </div>
+        <div class="m_body">
+          <form th:action="UpdateRoom" method="post" class="RoomApplyForm">
+            <label for="rooms">*신청하실 방을 골라주세요*</label>
+            <p th:text="'현재 인곡관 '+${member.roomNum}+'호 입니다.'">현재 인곡관 0호 입니다.</p>
+            <select id="rooms" name="room">
+              <option value="201">201</option>
+              <option value="202">202</option>
+              <option value="203">203</option>
+              <option value="204">204</option>
+              <option value="205">204</option>
+              <option value="206">206</option>
+              <option value="207">207</option>
+              <input class="studentNum" type="text" name="studentNum" th:value="${member.studentNum}">
+            </select>
+            <input type="submit" onclick="test1()" class="submit-btn">
+          </form>
+        </div>
+        <div class="m_footer">
+          <div class="modal_btn cancel" onclick="closeModal1()">CANCEL</div>
+        </div>
+      </div>
+    </div>
+
+    <!--  비밀 번호 변경 모달-->
+    <div class="modal2" >
+      <div class="modal_body">
+        <div class="m_head">
+          <div class="modal_title">비밀번호 변경하기</div>
+        </div>
+        <div class="m_body">
+          <form th:action="updatePassword" method="post">
+            <label for="Input-Password">*현재 비밀번호를 입력 해주세요*</label>
+            <input class="Exit_password" type="password" id="Input-Password" placeholder="비밀 번호를 입력해주세요">
+            <div class="row"><label for="Input-Password-confirm">비밀번호 확인</label></div>
+            <input class="Input-Password-confirm" type="password" id="Input-Password-confirm" placeholder="비밀번호를 다시 적어주세요.">
+            <hr>
+            <label for="Input-NewPassword">*새로운 비밀번호를 입력 해주세요*</label>
+            <input class="input" type="password" id="Input-NewPassword" name="password" placeholder="비밀 번호를 입력해주세요">
+              <input class="studentNum" type="text" name="studentNum" th:value="${member.studentNum}">
+            <input type="submit"  th:attr="onclick=|test2('${member.password}')|"  class="submit-btn">
+          </form>
+        </div>
+        <div class="m_footer">
+          <div class="modal_btn cancel" onclick="closeModal2()">CANCEL</div>
+        </div>
+      </div>
+    </div>
+
+    <img src="RESOURCES/images/HANSEO.JPG" alt="HANSEO UNIV" class="HANSEO-footer">
+  </div>
+</body>
+<script>
+  let modal1 = document.querySelector(".modal1");
+  let modal2 = document.querySelector(".modal2");
+
+ function openModal1(){  //openModal onclick
+    modal1.classList.add('show');
+ }
+
+ function openModal2(){  //openModal onclick
+    modal2.classList.add('show');
+ }
+
+ function closeModal1(){
+   modal1.classList.remove('show');
+ }
+ function closeModal2(){
+   modal2.classList.remove('show');
+ }
+
+function test1(){
+  alert('제출 되었습니다. 승인 시 목록에 등록됩니다.');
+}
+
+function test2(password){
+  const Exit_password = document.querySelector('#Input-Password').value;
+  const confirmPassword = document.querySelector('#Input-Password-confirm').value;
+  const New_password = document.querySelector('#Input-NewPassword').value;
+
+   if(New_password.length < 6) {
+    alert('비밀번호가 7자 이상이어야 합니다.');
+    window.location.reload();
+  }
+   if(Exit_password != confirmPassword || Exit_password != password) {
+    alert("비밀 번호가 일치하지 않습니다.");
+    window.location.reload();
+  }
+  if(Exit_password === New_password){
+    alert("동일한 비밀번호 입니다.");
+    window.location.reload();
+  }
+}
+function deleteMember(studentNum){
+  let result = confirm("정말 삭제 하시겠습니까?");
+
+  let url=`deleteMember?studentNum=${studentNum}`;
+
+  if(result){
+    window.location=url;
+  }
+
+}
+</script>
+</html>

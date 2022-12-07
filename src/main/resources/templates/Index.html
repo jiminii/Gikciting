@@ -1,0 +1,85 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Noto+Sans:wght@400;900&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/adc3b87ab1.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/CSS/reset.css">
+  <link rel="stylesheet" href="/CSS/Index.css">
+  <title>Index</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="nav-container">
+      <nav class="global-nav">
+        <a th:onclick="|location.href='@{index(studentNum=${member.studentNum})}'|" class="global-nav-item HANSEO">GikCiting</a>
+        <a th:onclick="|location.href='@{ShowRooms(studentNum=${member.studentNum})}'|" class="global-nav-item">방 신청 현황</a>
+        <a href="#" class="global-nav-item">About</a>
+      </nav>
+      <nav class="local-nav">
+        <a href="" class="local-nav-item">점호 내역</a>
+        <a th:onclick="|location.href='@{settings(studentNum=${member.studentNum})}'|" class="local-nav-item">설정</a>
+        <a href="LogoutMember" class="local-nav-item">로그 아웃</a>
+          <!-- 관리자 메뉴 삽입
+            <div class="local-nav-item"></div>
+            <div class="local-nav-item"></div>
+          -->
+      </nav>
+    </div>
+    <div class="location-container">
+      <iframe class="myLocation" src="" width="250px" height="175px"></iframe>
+      <button id = "find-me"><i class="fa-solid fa-magnifying-glass-location"></i></button><br/>
+      <p id = "status"></p>
+      <a id = "map-link" target="_blank"></a>
+    </div>
+    <a href="#" class="submit-btn">위치 전송</a>
+    <div th:each="member : ${member}" class="profile-container">
+      <div class="user-name">이름:<p th:text="${member.name}">이름</p></div>
+      <div class="user-major">학과:<p th:text="${member.major}">학과</p></div>
+      <div class="user-number">학번:<p th:text="${member.studentNum}">학번</p></div>
+      <div class="user-dormitory">기숙사:<p th:text="'인곡관 '+${member.roomNum}+'호'">기숙사</p></div>
+    </div>
+    <img src="RESOURCES/images/HANSEO.JPG" alt="HANSEO UNIV" class="HANSEO-footer">
+  </div>
+  <script>
+    (()=>{
+  function geoFindMe() {
+
+    const status = document.querySelector('#status');
+    const mapLink = document.querySelector('#map-link');
+
+    mapLink.href = '';  //map으로 연결된 src
+    mapLink.textContent = '';  //보여줄 문자
+
+    function success(position) {  //위치 조회 성공 시
+      const latitude  = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      status.textContent = '';
+      mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`; //mapLink의 src설정 openstreetmap에서 위도 경도를 사용하여 불러온다.
+      mapLink.textContent = `위도: ${latitude} °,  경도: ${longitude} °`; //출력할 문자
+
+      document.querySelector('.myLocation').src=`${mapLink.href}`;
+    }
+
+    function error() {  //위치 조회 실패 시
+      status.textContent = '위치 조회가 불가능 합니다.';
+    }
+
+    if(!navigator.geolocation) { //navigator를 지원하지 않는다면
+      status.textContent = 'Geolocation을 지원하지 않는 브라우저입니다.';
+    } else {
+      status.textContent = '조회 중입니다…';
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+
+  }
+
+  document.querySelector('#find-me').addEventListener('click', geoFindMe);
+})();
+
+  </script>
+</body>
+</html>
